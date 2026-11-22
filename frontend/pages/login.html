@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">FoodBridge</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/available-food">Available Food</a></li>
+      <li><a href="/impact">Impact</a></li>
+      <li><a href="/login" class="btn btn-secondary btn-sm">Login</a></li>
+      <li><a href="/register" class="btn btn-primary btn-sm">Register</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<main>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">🌿</div>
+        <h1>Welcome Back</h1>
+        <p>Log in to your FoodBridge account</p>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+          <span class="form-error" id="emailError"></span>
+        </div>
+
+        <div class="form-group password-field">
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            <button type="button" class="password-toggle" aria-label="Toggle password visibility">👁</button>
+          </div>
+          <span class="form-error" id="passwordError"></span>
+        </div>
+
+        <div class="form-group remember-row">
+          <label class="checkbox-label">
+            <input type="checkbox" name="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Log In</button>
+      </form>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <div class="demo-accounts">
+        <p>Try FoodBridge with demo accounts:</p>
+        <div class="demo-buttons">
+          <button type="button" class="btn btn-secondary btn-sm demo-btn" data-role="restaurant">Demo Restaurant</button>
+          <button type="button" class="btn btn-secondary btn-sm demo-btn" data-role="ngo">Demo NGO</button>
+          <button type="button" class="btn btn-secondary btn-sm demo-btn" data-role="admin">Demo Admin</button>
+        </div>
+        <small class="text-muted">Use demo accounts to explore FoodBridge features</small>
+      </div>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3><span class="logo-icon">🌿</span> FoodBridge</h3>
+        <p>Bridging surplus food with those in need.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="/">Home</a></li><li><a href="/available-food">Available Food</a></li><li><a href="/impact">Our Impact</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul><li><a href="/register">Register</a></li><li><a href="/login">Login</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@foodbridge.org</p>
+        <p>Mumbai, India</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2024 FoodBridge. Built with purpose.</p></div>
+  </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>

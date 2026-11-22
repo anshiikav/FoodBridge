@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Food — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">FoodBridge</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/available-food">Available Food</a></li>
+      <li><a href="/impact">Impact</a></li>
+      <li><a href="/login" class="btn btn-secondary btn-sm">Login</a></li>
+      <li><a href="/register" class="btn btn-primary btn-sm">Register</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px">
+  <div class="container">
+    <div class="page-header">
+      <h1>Available Food Donations</h1>
+      <p>Browse surplus food available for pickup from local restaurants</p>
+    </div>
+
+    <div class="filter-section card">
+      <div class="filter-grid" style="gap:14px; margin-bottom:14px;">
+        <input type="text" placeholder="Search by food name or restaurant..." class="filter-search" id="foodSearch" style="flex:2; min-width:240px;">
+        <select class="filter-category" id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="cooked-meals">Cooked Meals</option>
+          <option value="raw-ingredients">Raw Ingredients</option>
+          <option value="packaged-food">Packaged Food</option>
+          <option value="baked-goods">Baked Goods</option>
+          <option value="beverages">Beverages</option>
+          <option value="fruits-vegetables">Fruits &amp; Vegetables</option>
+          <option value="dairy">Dairy</option>
+        </select>
+        <select class="filter-diet" id="dietFilter">
+          <option value="">All Diets</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="non-vegetarian">Non-Vegetarian</option>
+          <option value="vegan">Vegan</option>
+        </select>
+        <select class="filter-min-qty" id="minQtyFilter">
+          <option value="">Any Servings</option>
+          <option value="25">25+ Servings</option>
+          <option value="40">40+ Servings</option>
+          <option value="50">50+ Servings</option>
+          <option value="60">60+ Servings</option>
+        </select>
+        <select class="filter-sort" id="sortFilter">
+          <option value="newest">Newest First</option>
+          <option value="deadline">Deadline Soon</option>
+          <option value="quantity">Quantity: High to Low</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" id="clearFilters">Reset</button>
+      </div>
+
+      <!-- Quick Category & Urgency Pills -->
+      <div class="quick-category-pills" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; border-top:1px solid var(--border-light); padding-top:12px;">
+        <span class="text-muted" style="font-size:0.85rem; font-weight:600;">Quick Filter:</span>
+        <button type="button" class="btn btn-sm cat-pill active" data-cat="" style="border-radius:20px; padding:3px 12px; font-size:0.8rem; background:var(--primary); color:#fff;">All</button>
+        <button type="button" class="btn btn-sm btn-secondary cat-pill" data-cat="cooked-meals" style="border-radius:20px; padding:3px 12px; font-size:0.8rem;">🍛 Cooked Meals</button>
+        <button type="button" class="btn btn-sm btn-secondary cat-pill" data-cat="baked-goods" style="border-radius:20px; padding:3px 12px; font-size:0.8rem;">🍞 Bakery</button>
+        <button type="button" class="btn btn-sm btn-secondary cat-pill" data-cat="fruits-vegetables" style="border-radius:20px; padding:3px 12px; font-size:0.8rem;">🥗 Fresh Produce</button>
+        <button type="button" class="btn btn-sm btn-secondary cat-pill" data-cat="beverages" style="border-radius:20px; padding:3px 12px; font-size:0.8rem;">🧃 Beverages</button>
+        <button type="button" class="btn btn-sm btn-secondary urgency-pill" id="urgentPill" style="border-radius:20px; padding:3px 12px; font-size:0.8rem; border-color:#EF4444; color:#DC2626;">🔥 Urgent (< 4h)</button>
+        <button type="button" class="btn btn-sm btn-secondary veg-pill" id="vegOnlyPill" style="border-radius:20px; padding:3px 12px; font-size:0.8rem; border-color:#16A34A; color:#16A34A;">🌱 Pure Veg</button>
+      </div>
+    </div>
+
+    <div class="results-info">
+      <span id="resultsCount">Loading available donations...</span>
+      <div style="font-size:0.85rem; color:var(--text-secondary);">
+        🟢 <strong>Live Listings</strong> from verified restaurant kitchens
+      </div>
+    </div>
+
+    <div class="food-grid" id="foodGrid">
+    </div>
+
+    <!-- Details Modal Container -->
+    <div id="detailsModalContainer"></div>
+
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="empty-icon">🍽</div>
+      <h3>No donations available</h3>
+      <p>No donations match your filters right now. Check back soon or adjust your search criteria.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3><span class="logo-icon">🌿</span> FoodBridge</h3>
+        <p>Bridging surplus food with those in need.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="/">Home</a></li><li><a href="/available-food">Available Food</a></li><li><a href="/impact">Our Impact</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul><li><a href="/register">Register</a></li><li><a href="/login">Login</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@foodbridge.org</p>
+        <p>Mumbai, India</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2024 FoodBridge. Built with purpose.</p></div>
+  </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/available-food.js"></script>
+</body>
+</html>

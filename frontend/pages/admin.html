@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="/" class="nav-logo"><span class="logo-icon">🌿</span><span class="logo-text">FoodBridge</span></a>
+      <small class="text-muted">Admin Panel</small>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#overview" class="sidebar-link active" data-section="overview">📊 Overview</a>
+      <a href="#verifications" class="sidebar-link" data-section="verifications">🛡️ Verifications <span class="badge" id="pendingVerifyBadge" style="margin-left:6px; background:#FEF3C7; color:#D97706; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span></a>
+      <a href="#restaurants" class="sidebar-link" data-section="restaurants">🍽 Restaurants</a>
+      <a href="#ngos" class="sidebar-link" data-section="ngos">🤝 NGOs</a>
+      <a href="#donations" class="sidebar-link" data-section="donations">📋 Donations</a>
+      <a href="#reports" class="sidebar-link" data-section="reports">⚠️ Reports</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-secondary btn-sm btn-full" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <h1 id="pageTitle">Admin Overview</h1>
+      <div class="header-actions">
+        <span class="user-name" id="userName">Admin</span>
+      </div>
+    </header>
+
+    <div class="dashboard-content" id="dashboardContent">
+
+      <!-- Overview -->
+      <div class="dashboard-section active" id="overviewSection">
+        <div class="stats-row">
+          <div class="stat-card" style="border-left: 4px solid var(--primary)">
+            <div class="stat-value" id="totalUsers">0</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--info)">
+            <div class="stat-value" id="totalRestaurants">0</div>
+            <div class="stat-label">Restaurants</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--accent)">
+            <div class="stat-value" id="totalNgos">0</div>
+            <div class="stat-label">NGOs</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--success)">
+            <div class="stat-value" id="totalDonations">0</div>
+            <div class="stat-label">Total Donations</div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card" style="border-left: 4px solid var(--warning)">
+            <div class="stat-value" id="pendingVerification">0</div>
+            <div class="stat-label">Pending Verification</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--success)">
+            <div class="stat-value" id="completedDonations">0</div>
+            <div class="stat-label">Completed Donations</div>
+          </div>
+        </div>
+        <h2>Recent Activity</h2>
+        <div class="empty-state">
+          <div class="empty-icon">📊</div>
+          <h3>No recent activity</h3>
+          <p>Platform activity will appear here as users register and create donations.</p>
+        </div>
+      </div>
+
+      <!-- Verifications Section -->
+      <div class="dashboard-section" id="verificationsSection">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <div>
+            <h2 style="margin:0;">Organization Verifications</h2>
+            <p class="text-muted" style="margin:4px 0 0 0;">Review, verify, and approve restaurant and NGO credentials before they can participate in food redistribution</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="refreshVerificationsBtn">🔄 Refresh Requests</button>
+        </div>
+
+        <!-- Quick Filter Tabs -->
+        <div class="quick-status-tabs" style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline admin-tab-btn active" data-tab="pending">⏳ Pending Requests (<span id="adminPendingCount">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline admin-tab-btn" data-tab="all">All Organizations (<span id="adminAllCount">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline admin-tab-btn" data-tab="verified">✓ Verified (<span id="adminVerifiedCount">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline admin-tab-btn" data-tab="rejected">✗ Rejected (<span id="adminRejectedCount">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline admin-tab-btn" data-tab="suspended">⛔ Suspended (<span id="adminSuspendedCount">0</span>)</button>
+        </div>
+
+        <div class="filter-bar" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input type="text" id="adminOrgSearch" placeholder="Search by name, email, FSSAI, reg number..." class="filter-search" style="flex:1; min-width:240px;">
+          <select id="adminRoleFilter">
+            <option value="all">All Organization Types</option>
+            <option value="restaurant">Restaurants Only</option>
+            <option value="ngo">NGOs Only</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" id="resetAdminOrgFilters">Reset</button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Type</th>
+                <th>Contact Person</th>
+                <th>License / Reg No</th>
+                <th>Supporting Document</th>
+                <th>Verification</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="verificationsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="verificationsEmpty" style="display:none;">
+          <div class="empty-icon">🛡️</div>
+          <h3>No organizations found</h3>
+          <p>No verification requests match your selected filters.</p>
+        </div>
+      </div>
+
+      <!-- Restaurants -->
+      <div class="dashboard-section" id="restaurantsSection">
+        <h2>Registered Restaurants</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>City</th><th>FSSAI</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="restaurantsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="restaurantsEmpty">
+          <div class="empty-icon">🍽</div>
+          <h3>No restaurants registered</h3>
+          <p>Registered restaurants will appear here.</p>
+        </div>
+      </div>
+
+      <!-- NGOs -->
+      <div class="dashboard-section" id="ngosSection">
+        <h2>Registered NGOs</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>City</th><th>Reg No</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="ngosTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="ngosEmpty">
+          <div class="empty-icon">🤝</div>
+          <h3>No NGOs registered</h3>
+          <p>Registered NGOs will appear here.</p>
+        </div>
+      </div>
+
+      <!-- Donations -->
+      <div class="dashboard-section" id="donationsSection">
+        <h2>All Donations</h2>
+        <div class="filter-bar">
+          <select id="adminDonationStatus">
+            <option value="">All Status</option>
+            <option value="available">Available</option>
+            <option value="accepted">Accepted</option>
+            <option value="pickup-scheduled">Pickup Scheduled</option>
+            <option value="picked-up">Picked Up</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="expired">Expired</option>
+          </select>
+          <input type="date" id="adminDonationDate">
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>ID</th><th>Restaurant</th><th>Food</th><th>Qty</th><th>Status</th><th>NGO</th><th>Date</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="donationsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="donationsEmpty">
+          <div class="empty-icon">📋</div>
+          <h3>No donations yet</h3>
+          <p>Donations will appear here as restaurants list surplus food.</p>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div class="dashboard-section" id="reportsSection">
+        <h2>Reported Issues</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Date</th><th>Reporter</th><th>Type</th><th>Description</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="reportsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="reportsEmpty">
+          <div class="empty-icon">⚠️</div>
+          <h3>No reports</h3>
+          <p>Reported issues will appear here.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Organization Details & Verification Review Modal -->
+    <div class="modal-overlay" id="verifyModal" style="display:none">
+      <div class="modal card" style="max-width:680px; width:92%; max-height:85vh; overflow-y:auto; padding:28px; border-radius:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; border-bottom:1px solid var(--border-light); padding-bottom:12px;">
+          <div>
+            <span id="modalOrgRoleBadge" class="badge badge-veg">RESTAURANT</span>
+            <h2 id="modalOrgName" style="margin:6px 0 2px 0;">Organization Name</h2>
+            <small class="text-muted" id="modalOrgEmail">org@example.com</small>
+          </div>
+          <button class="modal-close" id="closeVerifyModal">&times;</button>
+        </div>
+
+        <div id="modalDetailsBody" style="display:flex; flex-direction:column; gap:14px;">
+          <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Rejection Reason Input Section (hidden until user clicks Reject) -->
+        <div id="rejectionSection" style="display:none; margin-top:16px; background:#FEF2F2; padding:14px; border-radius:8px; border:1px solid #FECACA;">
+          <label for="adminRejectionReason" style="font-weight:600; color:#991B1B; margin-bottom:6px; display:block;">Specify Reason for Rejection:</label>
+          <textarea id="adminRejectionReason" rows="2" placeholder="e.g. FSSAI registration certificate could not be validated or license has expired." style="width:100%; border:1px solid #FCA5A5; border-radius:6px; padding:8px; font-size:0.9rem;"></textarea>
+          <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+            <button type="button" class="btn btn-secondary btn-sm" id="cancelRejectBtn">Cancel</button>
+            <button type="button" class="btn btn-danger btn-sm" id="confirmRejectBtn">Confirm Rejection</button>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; border-top:1px solid var(--border-light); padding-top:16px; flex-wrap:wrap; gap:10px;">
+          <div id="modalStatusBadge"></div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="dismissVerifyModal">Close</button>
+            <button type="button" class="btn btn-danger btn-sm" id="modalRejectBtn">✗ Reject</button>
+            <button type="button" class="btn btn-primary btn-sm" id="modalApproveBtn">✓ Approve Organization</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+/* ==========================================================================
+   FoodBridge - Home Page Styles
+   File: /frontend/css/home.css
+   ========================================================================== */
+
+/* 1. Hero Section */
+.hero {
+  min-height: 90vh;
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 20px 80px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary, #2E7D32);
+  max-width: 700px;
+  line-height: 1.25;
+  margin: 0 auto 20px;
+}
+
+.hero p {
+  color: var(--text-secondary, #555555);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 36px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 2. How It Works Section */
+.how-it-works {
+  background-color: var(--white, #FFFFFF);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.step-card {
+  background-color: var(--white, #FFFFFF);
+  border: 1px solid var(--border-light, #F0F0F0);
+  border-radius: var(--radius, 10px);
+  box-shadow: var(--shadow, 0 2px 8px rgba(0, 0, 0, 0.08));
+  padding: 36px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.step-card .step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary, #2E7D32);
+  color: var(--white, #FFFFFF);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.step-card .step-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+
+.step-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary, #1B1B1B);
+  margin-bottom: 12px;
+}
+
+/* 3. Benefits Section */
+.benefits {
+  background-color: var(--primary-bg, #E8F5E9);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.benefit-item {
+  background-color: var(--bg-card, #FFFFFF);
+  border-radius: var(--radius, 10px);
+  box-shadow: var(--shadow, 0 2px 8px rgba(0, 0, 0, 0.08));
+  padding: 28px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.benefit-item .benefit-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm, 6px);
+  background-color: var(--primary-bg, #E8F5E9);
+  color: var(--primary, #2E7D32);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #1B1B1B);
+  margin-bottom: 8px;
+}
+
+.step-card p,
+.benefit-item p {
+  color: var(--text-secondary, #555555);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Card Hover Effects */
+.step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover, 0 4px 16px rgba(0, 0, 0, 0.12));
+}
+
+.benefit-item:hover,
+.stat-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover, 0 4px 16px rgba(0, 0, 0, 0.12));
+}
+
+/* 4. Impact Stats Section */
+.impact-stats {
+  background-color: var(--white, #FFFFFF);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.stat-item {
+  background-color: var(--bg-light, #F5F7F5);
+  border: 1px solid var(--border-light, #F0F0F0);
+  border-radius: var(--radius, 10px);
+  padding: 32px 20px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-item .stat-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.stat-item .stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary, #2E7D32);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  display: block;
+}
+
+@keyframes countUpPulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.stat-number.count-up,
+.stat-number.animate {
+  animation: countUpPulse 0.6s ease-out forwards;
+}
+
+.stat-item .stat-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary, #555555);
+}
+
+/* 5. Food Safety Section */
+.food-safety {
+  background-color: var(--bg-light, #F5F7F5);
+}
+
+.food-safety-content {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.food-safety-intro {
+  color: var(--text-secondary, #555555);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.safety-checklist,
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 32px auto 0;
+  max-width: 640px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.safety-checklist li,
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--white, #FFFFFF);
+  border: 1px solid var(--border-light, #F0F0F0);
+  border-radius: var(--radius-sm, 6px);
+  padding: 16px 20px;
+  box-shadow: var(--shadow, 0 2px 8px rgba(0, 0, 0, 0.08));
+  color: var(--text-primary, #1B1B1B);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.safety-checklist li:hover,
+.checklist-item:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow-hover, 0 4px 16px rgba(0, 0, 0, 0.12));
+}
+
+.check-icon,
+.safety-checklist li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--primary-bg, #E8F5E9);
+  color: var(--primary, #2E7D32);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.safety-checklist li:has(.check-icon)::before {
+  display: none;
+}
+
+/* 6. Responsive Styles */
+@media (max-width: 992px) {
+  .hero h1 { font-size: 2.4rem; }
+  .steps-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .benefits-grid { gap: 20px; }
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: auto; padding: 70px 16px 60px; }
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; margin-bottom: 28px; }
+  .hero-buttons { flex-direction: column; width: 100%; gap: 12px; }
+  .hero-buttons .btn { width: 100%; text-align: center; }
+  .steps-grid, .benefits-grid, .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+  .step-card { padding: 28px 20px; }
+  .stat-item .stat-number { font-size: 2.2rem; }
+  .safety-checklist li, .checklist-item { padding: 14px 16px; font-size: 0.95rem; }
+}

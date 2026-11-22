@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Dashboard — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="/" class="nav-logo"><span class="logo-icon">🌿</span><span class="logo-text">FoodBridge</span></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#overview" class="sidebar-link active" data-section="overview">📊 Overview</a>
+      <a href="#new-donation" class="sidebar-link" data-section="new-donation">➕ New Donation</a>
+      <a href="#my-donations" class="sidebar-link" data-section="my-donations">📋 My Donations</a>
+      <a href="#accepted" class="sidebar-link" data-section="accepted">✅ Accepted</a>
+      <a href="#history" class="sidebar-link" data-section="history">📜 History</a>
+      <a href="#profile" class="sidebar-link" data-section="profile">👤 Profile</a>
+      <a href="#notifications" class="sidebar-link" data-section="notifications">🔔 Notifications</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-secondary btn-sm btn-full" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <h1 id="pageTitle">Overview</h1>
+      <div class="header-actions">
+        <span class="notification-bell" id="notifBell">🔔 <span class="notif-count">0</span></span>
+        <span class="user-name" id="userName">Restaurant</span>
+        <span id="userVerificationBadge"></span>
+      </div>
+    </header>
+
+    <div class="dashboard-content" id="dashboardContent">
+      <div id="verificationBannerContainer"></div>
+
+      <!-- Overview Section -->
+      <div class="dashboard-section active" id="overviewSection">
+        <div class="stats-row">
+          <div class="stat-card" style="border-left: 4px solid var(--primary)">
+            <div class="stat-value" id="totalDonations">0</div>
+            <div class="stat-label">Total Donations</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--info)">
+            <div class="stat-value" id="activeDonations">0</div>
+            <div class="stat-label">Active</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--accent)">
+            <div class="stat-value" id="acceptedDonations">0</div>
+            <div class="stat-label">Accepted</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--success)">
+            <div class="stat-value" id="completedDonations">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+
+        <!-- Restaurant Environmental Impact Card -->
+        <div class="card mb-4" style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border: 1px solid #BBF7D0; padding: 20px 24px; border-radius: 12px; margin-bottom: 24px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div>
+              <span class="badge badge-veg" style="margin-bottom:6px;">🌱 YOUR RESTAURANT IMPACT</span>
+              <h3 style="color:#166534; margin:4px 0 6px;">Food Waste Diverted From Landfills</h3>
+              <p style="color:#15803D; font-size:0.9rem; margin:0;">Calculated from verified completed donations recorded for your kitchen.</p>
+            </div>
+            <div style="display:flex; gap:24px; flex-wrap:wrap;">
+              <div style="text-align:center;">
+                <div id="restFoodRescued" style="font-size:1.6rem; font-weight:800; color:#166534;">0 kg</div>
+                <small class="text-muted" style="font-weight:600;">Food Rescued</small>
+              </div>
+              <div style="text-align:center;">
+                <div id="restCo2Diverted" style="font-size:1.6rem; font-weight:800; color:#166534;">0 kg</div>
+                <small class="text-muted" style="font-weight:600;">CO₂ Avoided</small>
+              </div>
+              <div style="text-align:center;">
+                <div id="restMealsCount" style="font-size:1.6rem; font-weight:800; color:#166534;">0</div>
+                <small class="text-muted" style="font-weight:600;">Meals Fed</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2>Recent Donations</h2>
+        <div class="recent-donations" id="recentDonations">
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <h3>No donations yet</h3>
+            <p>Create your first food donation to get started!</p>
+            <a href="#new-donation" class="btn btn-primary btn-sm" data-section="new-donation">Create Donation</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Donation Section -->
+      <div class="dashboard-section" id="newDonationSection">
+        <div id="newDonationBannerContainer"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+          <h2 style="margin:0;">Create New Donation</h2>
+          <div class="quick-template-bar" style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="text-muted" style="font-size:0.85rem; font-weight:600; align-self:center;">⚡ Quick Fill:</span>
+            <button type="button" class="btn btn-secondary btn-sm template-btn" data-type="lunch" style="font-size:0.8rem; border-radius:20px;">🍱 Lunch Buffet (35)</button>
+            <button type="button" class="btn btn-secondary btn-sm template-btn" data-type="dinner" style="font-size:0.8rem; border-radius:20px;">🍛 Curry & Rice (50)</button>
+            <button type="button" class="btn btn-secondary btn-sm template-btn" data-type="bakery" style="font-size:0.8rem; border-radius:20px;">🍞 Bakery Buns (40)</button>
+            <button type="button" class="btn btn-secondary btn-sm template-btn" data-type="produce" style="font-size:0.8rem; border-radius:20px;">🥗 Fresh Produce (25)</button>
+            <button type="button" class="btn btn-secondary btn-sm template-btn" data-type="khichdi" style="font-size:0.8rem; border-radius:20px;">🍲 Khichdi & Kadhi (45)</button>
+          </div>
+        </div>
+        <form id="donationForm" class="card">
+          <div class="form-group">
+            <label for="foodName">Food Name *</label>
+            <input type="text" id="foodName" name="foodName" required placeholder="e.g. Paneer Butter Masala">
+          </div>
+          <div class="form-group">
+            <label for="foodDesc">Description</label>
+            <textarea id="foodDesc" name="description" rows="3" placeholder="Brief description of the food items"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="foodCategory">Food Category *</label>
+              <select id="foodCategory" name="category" required>
+                <option value="">Select category...</option>
+                <option value="cooked-meals">Cooked Meals</option>
+                <option value="raw-ingredients">Raw Ingredients</option>
+                <option value="packaged-food">Packaged Food</option>
+                <option value="baked-goods">Baked Goods</option>
+                <option value="beverages">Beverages</option>
+                <option value="fruits-vegetables">Fruits &amp; Vegetables</option>
+                <option value="dairy">Dairy</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dietType">Diet Type *</label>
+              <select id="dietType" name="dietType" required>
+                <option value="">Select...</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="non-vegetarian">Non-Vegetarian</option>
+                <option value="vegan">Vegan</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="quantity">Quantity (Servings) *</label>
+              <input type="number" id="quantity" name="quantity" min="1" required placeholder="e.g. 25">
+            </div>
+            <div class="form-group">
+              <label for="prepTime">Preparation Time *</label>
+              <input type="datetime-local" id="prepTime" name="preparedAt" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pickupDeadline">Pickup Deadline *</label>
+            <input type="datetime-local" id="pickupDeadline" name="pickupDeadline" required>
+          </div>
+          <div class="form-group">
+            <label for="pickupAddress">Pickup Address *</label>
+            <textarea id="pickupAddress" name="pickupAddress" rows="2" required placeholder="Full address for food pickup"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactPerson">Contact Person *</label>
+              <input type="text" id="contactPerson" name="contactPerson" required placeholder="Person to coordinate with">
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">Contact Phone *</label>
+              <input type="tel" id="contactPhone" name="contactPhone" required placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="foodImage">Food Image (optional)</label>
+            <input type="file" id="foodImage" name="foodImage" accept="image/*">
+          </div>
+
+          <div class="food-safety-checklist card" style="background: var(--primary-bg)">
+            <h3>Food Safety Confirmation</h3>
+            <p>Please confirm the following before listing your donation:</p>
+            <div class="checklist-items">
+              <label class="checkbox-label"><input type="checkbox" name="safety1" required> Food was prepared in a clean, hygienic environment</label>
+              <label class="checkbox-label"><input type="checkbox" name="safety2" required> Food has been stored at appropriate temperature</label>
+              <label class="checkbox-label"><input type="checkbox" name="safety3" required> Food is within safe consumption window</label>
+              <label class="checkbox-label"><input type="checkbox" name="safety4" required> Food packaging/containers are clean and sealed properly</label>
+            </div>
+            <small class="text-muted">FoodBridge requires this confirmation but does not independently verify food safety. All donations must comply with local food safety regulations.</small>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Publish Donation</button>
+            <button type="button" class="btn btn-secondary" id="saveDraftBtn">Save as Draft</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- My Donations Section -->
+      <div class="dashboard-section" id="myDonationsSection">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <h2 style="margin:0;">My Donations</h2>
+          <a href="#new-donation" class="btn btn-primary btn-sm" data-section="new-donation">+ Create New Donation</a>
+        </div>
+        
+        <!-- Status Tabs with live counts -->
+        <div class="quick-status-tabs" style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline status-tab-btn active" data-status="all">All Donations (<span id="countAllDon">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline status-tab-btn" data-status="available">Available (<span id="countAvaDon">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline status-tab-btn" data-status="accepted">Accepted (<span id="countAccDon">0</span>)</button>
+          <button type="button" class="btn btn-sm btn-outline status-tab-btn" data-status="pickup-scheduled">Pickup Scheduled (<span id="countSchedDon">0</span>)</button>
+        </div>
+
+        <div class="filter-bar" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input type="text" id="donationSearch" placeholder="Search my donations..." class="filter-search" style="flex:1; min-width:200px;">
+          <select id="donationCategoryFilter">
+            <option value="">All Categories</option>
+            <option value="cooked-meals">Cooked Meals</option>
+            <option value="baked-goods">Baked Goods & Bread</option>
+            <option value="packaged-food">Packaged Food</option>
+            <option value="raw-ingredients">Raw Ingredients</option>
+            <option value="fruits-vegetables">Fruits & Vegetables</option>
+            <option value="dairy">Dairy & Beverages</option>
+          </select>
+          <select id="donationStatusFilter">
+            <option value="all">All Status</option>
+            <option value="available">Available</option>
+            <option value="accepted">Accepted</option>
+            <option value="pickup-scheduled">Pickup Scheduled</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" id="resetDonationFiltersBtn">Reset</button>
+        </div>
+
+        <div class="donations-list" id="myDonationsList">
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <h3>No active donations</h3>
+            <p>Your published donations will appear here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accepted Section -->
+      <div class="dashboard-section" id="acceptedSection">
+        <h2>Accepted Donations</h2>
+        <p class="text-muted">Donations that have been accepted by NGOs for pickup</p>
+        <div class="accepted-list" id="acceptedList">
+          <div class="empty-state">
+            <div class="empty-icon">✅</div>
+            <h3>No accepted donations yet</h3>
+            <p>When an NGO accepts one of your donations, it will appear here with pickup details.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Section -->
+      <div class="dashboard-section" id="historySection">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <h2 style="margin:0;">Donation History</h2>
+          <button class="btn btn-secondary btn-sm" id="exportRestaurantCsvBtn">📥 Download CSV Report</button>
+        </div>
+
+        <!-- Quick Date Range Pills -->
+        <div class="quick-date-pills" style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline rest-date-pill active" data-range="all">All Time</button>
+          <button type="button" class="btn btn-sm btn-outline rest-date-pill" data-range="today">Today</button>
+          <button type="button" class="btn btn-sm btn-outline rest-date-pill" data-range="week">Last 7 Days</button>
+          <button type="button" class="btn btn-sm btn-outline rest-date-pill" data-range="month">Last 30 Days</button>
+        </div>
+
+        <div class="filter-bar" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input type="date" id="historyFrom" placeholder="From date">
+          <input type="date" id="historyTo" placeholder="To date">
+          <select id="historyStatusFilter">
+            <option value="all">All Status</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="expired">Expired</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" id="resetHistoryBtn">Reset Filters</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Date</th><th>Food</th><th>NGO</th><th>Quantity</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="historyEmpty">
+          <div class="empty-icon">📜</div>
+          <h3>No history yet</h3>
+          <p>Completed, cancelled, and expired donations will appear here.</p>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="dashboard-section" id="profileSection">
+        <h2>Restaurant Profile</h2>
+        <form id="profileForm" class="card">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profOrgName">Organization Name</label>
+              <input type="text" id="profOrgName" name="orgName">
+            </div>
+            <div class="form-group">
+              <label for="profContact">Contact Person</label>
+              <input type="text" id="profContact" name="contactPerson">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profEmail">Email</label>
+            <input type="email" id="profEmail" name="email" readonly class="input-readonly">
+          </div>
+          <div class="form-group">
+            <label for="profPhone">Phone</label>
+            <input type="tel" id="profPhone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="profAddress">Address</label>
+            <textarea id="profAddress" name="address" rows="2"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profCity">City</label>
+              <input type="text" id="profCity" name="city">
+            </div>
+            <div class="form-group">
+              <label for="profPincode">Pincode</label>
+              <input type="text" id="profPincode" name="pincode">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profType">Restaurant Type</label>
+            <select id="profType" name="restaurantType">
+              <option value="fine-dining">Fine Dining</option>
+              <option value="casual-dining">Casual Dining</option>
+              <option value="cafe">Cafe</option>
+              <option value="quick-service">Quick Service</option>
+              <option value="catering">Catering</option>
+              <option value="cloud-kitchen">Cloud Kitchen</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="profFssai">FSSAI License</label>
+            <input type="text" id="profFssai" name="fssaiLicense">
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <span class="badge badge-pending">Pending Verification</span>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+
+      <!-- Notifications Section -->
+      <div class="dashboard-section" id="notificationsSection">
+        <h2>Notifications</h2>
+        <div class="notifications-list" id="notificationsList">
+          <div class="empty-state">
+            <div class="empty-icon">🔔</div>
+            <h3>No notifications</h3>
+            <p>You'll receive notifications about donation updates and pickup confirmations here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Donation Modal -->
+      <div class="modal-overlay" id="editDonationModal" style="display:none;">
+        <div class="modal" style="max-width: 550px;">
+          <div class="modal-header">
+            <h3>Edit Donation Listing</h3>
+            <button class="modal-close" id="closeEditDonationModal">&times;</button>
+          </div>
+          <form id="editDonationForm">
+            <input type="hidden" id="editDonationId">
+            <div class="form-group">
+              <label for="editFoodName">Food Name *</label>
+              <input type="text" id="editFoodName" required>
+            </div>
+            <div class="form-group">
+              <label for="editFoodDesc">Description</label>
+              <textarea id="editFoodDesc" rows="2"></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="editQuantity">Quantity (Servings) *</label>
+                <input type="number" id="editQuantity" min="1" required>
+              </div>
+              <div class="form-group">
+                <label for="editPickupDeadline">Pickup Deadline *</label>
+                <input type="datetime-local" id="editPickupDeadline" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="editContactPhone">Contact Phone</label>
+              <input type="tel" id="editContactPhone">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button type="button" class="btn btn-secondary" id="cancelEditDonation">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

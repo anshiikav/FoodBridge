@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodBridge — Bridging Surplus Food With Those In Need</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">FoodBridge</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" data-i18n="nav_home">Home</a></li>
+      <li><a href="/available-food" data-i18n="nav_available_food">Available Food</a></li>
+      <li><a href="/impact" data-i18n="nav_impact">Impact</a></li>
+      <li><a href="/login" class="btn btn-secondary btn-sm" data-i18n="nav_login">Login</a></li>
+      <li><a href="/register" class="btn btn-primary btn-sm" data-i18n="nav_register">Register</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<!-- Live Network Activity Ticker -->
+<div class="live-activity-banner" style="background: #F0FDF4; border-bottom: 1px solid #BBF7D0; padding: 10px 16px; font-size: 0.9rem; color: #166534; display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center; flex-wrap: wrap;">
+  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 0 3px rgba(34,197,94,0.3);"></span>
+  <span><strong>Live Network Activity:</strong> <span id="liveListingCount">18+ food listings</span> active across Mumbai | Last pickup: <strong>14 minutes ago</strong> by Feeding Hope Foundation</span>
+  <a href="/available-food" class="btn btn-primary btn-sm" style="padding: 3px 12px; font-size: 0.8rem; border-radius: 12px;">Browse Surplus Food →</a>
+</div>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-i18n="hero_title">Bridging Surplus Food<br>With Those In Need</h1>
+      <p data-i18n="hero_desc">Every day, restaurants discard perfectly good food while communities go hungry. FoodBridge connects surplus food from restaurants with NGOs who distribute it to people in need — reducing waste, feeding families, and building lasting partnerships.</p>
+      <div class="hero-buttons">
+        <a href="/register" class="btn btn-accent" data-i18n="btn_donate">Donate Food</a>
+        <a href="/available-food" class="btn btn-secondary" data-i18n="btn_find_food">Find Food</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section how-it-works">
+    <div class="container">
+      <h2 class="section-title" data-i18n="how_it_works">How FoodBridge Works</h2>
+      <p class="section-subtitle" data-i18n="how_it_works_sub">Three simple steps to reduce food waste and feed communities</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon">📋</div>
+          <h3>List Surplus Food</h3>
+          <p>Restaurants list their available surplus food with details like quantity, preparation time, and pickup deadline.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon">🤝</div>
+          <h3>Smart Matching</h3>
+          <p>Our algorithm finds the best NGO match based on location, food needs, and pickup availability.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon">✅</div>
+          <h3>Confirm Pickup</h3>
+          <p>NGO picks up the food, confirms via QR code, and distributes it to communities in need.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="section benefits">
+    <div class="container">
+      <h2 class="section-title">Why Food Redistribution Matters</h2>
+      <p class="section-subtitle">Together we can make a real difference in our communities</p>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">🗑️</div>
+          <h3>Reduce Food Waste</h3>
+          <p>Divert perfectly good surplus food from landfills to plates that need it. Every meal saved is a step towards sustainability.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🍽️</div>
+          <h3>Feed Communities</h3>
+          <p>Help NGOs serve nutritious meals to families, children, and those facing food insecurity in your neighbourhood.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📊</div>
+          <h3>Simple &amp; Transparent</h3>
+          <p>Track every donation from listing to delivery with real-time status updates and QR-verified pickups.</p>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🤝</div>
+          <h3>Build Partnerships</h3>
+          <p>Connect restaurants and NGOs for lasting, meaningful community impact that grows over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Stats -->
+  <section class="section impact-stats">
+    <div class="container">
+      <h2 class="section-title">Our Impact So Far</h2>
+      <p class="section-subtitle">Real numbers from real donations on the platform</p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="1200">0</div>
+          <div class="stat-label">Meals Donated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="340">0</div>
+          <div class="stat-label">Successful Pickups</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="85">0</div>
+          <div class="stat-label">Restaurants Participating</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="45">0</div>
+          <div class="stat-label">NGOs Partnered</div>
+        </div>
+      </div>
+      <p class="text-center text-muted mt-2" style="font-size:0.85rem">Statistics reflect actual platform activity and update as donations are completed.</p>
+    </div>
+  </section>
+
+  <!-- Interactive Impact Calculator Section -->
+  <section class="section" style="background: var(--bg-light); padding: 60px 0;">
+    <div class="container">
+      <h2 class="section-title">Interactive Impact Calculator</h2>
+      <p class="section-subtitle">See the environmental and social difference your restaurant can make</p>
+
+      <div class="card" style="max-width: 800px; margin: 0 auto; padding: 36px; border: 1px solid var(--border);">
+        <div style="margin-bottom: 24px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+            <label for="mealSlider" style="font-weight:600; font-size:1.1rem;">Surplus Meals to Redistribute:</label>
+            <span id="sliderValue" style="font-size:1.5rem; font-weight:700; color:var(--primary);">50 meals</span>
+          </div>
+          <input type="range" id="mealSlider" min="10" max="500" step="5" value="50" style="width:100%; height:8px; accent-color:var(--primary); cursor:pointer;">
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 24px;">
+          <div style="background:var(--primary-bg); padding:16px; border-radius:8px; text-align:center;">
+            <div style="font-size:1.8rem; margin-bottom:4px;">🍲</div>
+            <div id="calcMeals" style="font-size:1.4rem; font-weight:700; color:var(--primary);">50</div>
+            <small class="text-muted">People Fed</small>
+          </div>
+          <div style="background:var(--primary-bg); padding:16px; border-radius:8px; text-align:center;">
+            <div style="font-size:1.8rem; margin-bottom:4px;">⚖️</div>
+            <div id="calcFoodKg" style="font-size:1.4rem; font-weight:700; color:var(--primary);">20.0 kg</div>
+            <small class="text-muted">Food Rescued</small>
+          </div>
+          <div style="background:var(--primary-bg); padding:16px; border-radius:8px; text-align:center;">
+            <div style="font-size:1.8rem; margin-bottom:4px;">🌍</div>
+            <div id="calcCo2" style="font-size:1.4rem; font-weight:700; color:var(--primary);">50.0 kg</div>
+            <small class="text-muted">CO₂ Diverted</small>
+          </div>
+          <div style="background:var(--primary-bg); padding:16px; border-radius:8px; text-align:center;">
+            <div style="font-size:1.8rem; margin-bottom:4px;">💧</div>
+            <div id="calcWater" style="font-size:1.4rem; font-weight:700; color:var(--primary);">30,000 L</div>
+            <small class="text-muted">Water Conserved</small>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top: 28px;">
+          <a href="/register" class="btn btn-primary">Start Donating Surplus Food</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Smart Match Algorithm Simulator -->
+  <section class="section" style="padding: 60px 0;">
+    <div class="container">
+      <h2 class="section-title">Test Our Smart Matching Algorithm</h2>
+      <p class="section-subtitle">Experience how our rule-based scoring prioritizes NGO compatibility and rapid pickup</p>
+
+      <div class="card" style="max-width: 860px; margin: 0 auto; padding: 36px; border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 32px;">
+        <div style="flex: 1; min-width: 300px;">
+          <h3 style="margin-bottom: 16px; color: var(--primary);">Simulation Parameters</h3>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-weight: 500;">Distance from Restaurant: <strong id="simDistVal" style="color:var(--primary);">3.5 km</strong></label>
+            <input type="range" id="simDistSlider" min="0.5" max="25" step="0.5" value="3.5" style="width:100%; accent-color:var(--primary); cursor:pointer;">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-weight: 500;">Food & Dietary Compatibility</label>
+            <select id="simDietSelect" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+              <option value="perfect">Perfect Dietary Match (Vegetarian ↔ Vegetarian)</option>
+              <option value="both">Flexible Match (NGO accepts both Veg & Non-Veg)</option>
+              <option value="incompatible">Incompatible (Strict Vegetarian NGO vs Non-Veg Food)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-weight: 500;">Pickup Window & Vehicle Readiness</label>
+            <select id="simTimeSelect" style="width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px;">
+              <option value="optimal">Ample Time (4+ hours) + Dedicated Van Available</option>
+              <option value="moderate">Moderate Time (2 hours) + Standard Pickup</option>
+              <option value="urgent">Urgent Window (< 1 hour remaining)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="flex: 1; min-width: 280px; background: var(--bg-light); border-radius: 12px; padding: 24px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <small class="text-muted" style="text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Calculated Match Score</small>
+          <div id="simScoreGauge" style="font-size: 3.2rem; font-weight: 800; color: var(--primary); margin: 8px 0;">91%</div>
+          <div id="simRatingLabel" class="badge badge-veg" style="font-size: 0.9rem; padding: 5px 14px; margin-bottom: 14px;">EXCELLENT MATCH</div>
+
+          <div id="simExplanation" style="background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; text-align: left; line-height: 1.5; color: var(--text-secondary);">
+            Recommended with 91% match: 3.5 km away (40% weight), high dietary compatibility (35% weight), and ready transport (25% weight).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive FAQ Accordion -->
+  <section class="section" style="background: var(--bg-light); padding: 60px 0;">
+    <div class="container" style="max-width: 800px;">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know about participating in FoodBridge</p>
+
+      <div class="faq-accordion" style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="card faq-item" style="padding: 18px 24px; cursor: pointer; transition: all 0.2s;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:1.05rem;">
+            <span>How does FoodBridge ensure food safety?</span>
+            <span class="faq-icon" style="font-size:1.2rem; color:var(--primary);">+</span>
+          </div>
+          <div class="faq-answer" style="display:none; margin-top:12px; color:var(--text-secondary); line-height:1.6; font-size:0.95rem; border-top:1px solid var(--border-light); padding-top:10px;">
+            Restaurants must complete a mandatory four-point food safety checklist confirming hygienic preparation, safe storage temperature, and clean packaging before listing. Automated pickup deadlines expire uncollected food safely.
+          </div>
+        </div>
+
+        <div class="card faq-item" style="padding: 18px 24px; cursor: pointer; transition: all 0.2s;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:1.05rem;">
+            <span>How does the QR-based pickup confirmation work?</span>
+            <span class="faq-icon" style="font-size:1.2rem; color:var(--primary);">+</span>
+          </div>
+          <div class="faq-answer" style="display:none; margin-top:12px; color:var(--text-secondary); line-height:1.6; font-size:0.95rem; border-top:1px solid var(--border-light); padding-top:10px;">
+            When an NGO claims a donation, a single-use 6-digit confirmation code and encrypted QR code are generated. The restaurant kitchen displays the code, and the NGO verifies it on collection to update the status to Completed.
+          </div>
+        </div>
+
+        <div class="card faq-item" style="padding: 18px 24px; cursor: pointer; transition: all 0.2s;">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:1.05rem;">
+            <span>Is there any fee or subscription required?</span>
+            <span class="faq-icon" style="font-size:1.2rem; color:var(--primary);">+</span>
+          </div>
+          <div class="faq-answer" style="display:none; margin-top:12px; color:var(--text-secondary); line-height:1.6; font-size:0.95rem; border-top:1px solid var(--border-light); padding-top:10px;">
+            No. FoodBridge is completely free and non-commercial for verified charities, shelters, and food donors as a social impact initiative.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Food Safety -->
+  <section class="section food-safety">
+    <div class="container">
+      <h2 class="section-title">Our Approach to Food Safety</h2>
+      <p class="section-subtitle">Every donation goes through a safety confirmation process</p>
+      <div class="safety-content">
+        <p>FoodBridge requires restaurants to complete a food safety checklist before listing any donation. This includes confirming preparation details, storage conditions, and packaging quality.</p>
+        <div class="safety-checklist">
+          <div class="safety-item"><span class="check-icon">✓</span><span>Preparation time must be recent and clearly stated</span></div>
+          <div class="safety-item"><span class="check-icon">✓</span><span>Pickup deadline is enforced — expired listings are auto-removed</span></div>
+          <div class="safety-item"><span class="check-icon">✓</span><span>Food safety checklist must be completed before publishing</span></div>
+          <div class="safety-item"><span class="check-icon">✓</span><span>Temperature and handling guidelines are shared with both parties</span></div>
+        </div>
+        <div class="safety-note">
+          <strong>Important:</strong> FoodBridge facilitates connections between food donors and recipients. All food handling must comply with applicable local food safety regulations. This platform does not replace professional food safety inspections or certifications.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3><span class="logo-icon">🌿</span> FoodBridge</h3>
+        <p>Bridging surplus food with those in need. Reducing waste, feeding communities, one meal at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/available-food">Available Food</a></li>
+          <li><a href="/impact">Our Impact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul>
+          <li><a href="/register">Register as Restaurant</a></li>
+          <li><a href="/register">Register as NGO</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@foodbridge.org</p>
+        <p>Mumbai, India</p>
+      </div>
+    </div>
+    <div class="footer-bottom" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <p>&copy; 2024 FoodBridge. Built with purpose.</p>
+      <div style="display:flex; gap:16px; font-size:0.85rem;">
+        <a href="#" id="openPrivacyLink" style="color:var(--text-light); text-decoration:none;">Privacy Policy</a>
+        <a href="#" id="openTermsLink" style="color:var(--text-light); text-decoration:none;">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy & Terms Modal -->
+<div class="modal-overlay" id="legalModal" style="display:none;">
+  <div class="modal" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+    <div class="modal-header">
+      <h3 id="legalModalTitle">Terms of Service</h3>
+      <button class="modal-close" id="closeLegalModal">&times;</button>
+    </div>
+    <div id="legalModalContent" style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary); margin-top:14px;"></div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/home.js"></script>
+</body>
+</html>

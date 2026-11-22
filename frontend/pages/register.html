@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><span class="logo-icon">🌿</span><span class="logo-text">FoodBridge</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/available-food">Available Food</a></li>
+        <li><a href="/impact">Impact</a></li>
+        <li><a href="/login" class="btn btn-secondary btn-sm">Login</a></li>
+        <li><a href="/register" class="btn btn-primary btn-sm">Register</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="auth-container">
+      <div class="auth-card" style="max-width:560px">
+
+        <div class="auth-header">
+          <span class="logo-icon">🌿</span>
+          <h1>Create Your Account</h1>
+          <p>Join FoodBridge and start making a difference</p>
+        </div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="restaurant">🍽 Restaurant</button>
+          <button class="auth-tab" data-tab="ngo">🤝 NGO</button>
+        </div>
+
+        <form id="registerForm" class="auth-form">
+
+          <!-- Common Fields -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" required placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" required placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="orgName">Organization / Restaurant / NGO Name *</label>
+            <input type="text" id="orgName" name="organizationName" required placeholder="Organization Name">
+          </div>
+
+          <div class="form-group">
+            <label for="regEmail">Email Address *</label>
+            <input type="email" id="regEmail" name="email" required placeholder="you@example.com">
+            <span class="form-error" id="regEmailError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regPassword">Password * (min 8 characters)</label>
+              <input type="password" id="regPassword" name="password" required minlength="8" placeholder="Min 8 characters">
+              <span class="form-error" id="regPasswordError"></span>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password *</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password">
+              <span class="form-error" id="confirmPasswordError"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address *</label>
+            <textarea id="address" name="address" rows="2" required placeholder="Street address"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" name="city" required placeholder="City">
+            </div>
+            <div class="form-group">
+              <label for="pincode">Pincode *</label>
+              <input type="text" id="pincode" name="pincode" required placeholder="Pincode">
+            </div>
+          </div>
+
+          <!-- Restaurant-specific Fields -->
+          <div id="restaurantFields" class="auth-section">
+            <div class="form-group">
+              <label for="restaurantType">Restaurant Type</label>
+              <select id="restaurantType" name="restaurantType">
+                <option value="">Select Type</option>
+                <option value="fine-dining">Fine Dining</option>
+                <option value="casual-dining">Casual Dining</option>
+                <option value="cafe">Cafe</option>
+                <option value="quick-service">Quick Service</option>
+                <option value="catering">Catering</option>
+                <option value="cloud-kitchen">Cloud Kitchen</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fssai">FSSAI License Number</label>
+              <input type="text" id="fssai" name="fssaiLicense" placeholder="FSSAI License Number">
+            </div>
+
+            <div class="form-group">
+              <label for="avgSurplus">Average Daily Surplus (servings)</label>
+              <select id="avgSurplus" name="avgDailySurplus">
+                <option value="">Select Range</option>
+                <option value="under-10">Under 10</option>
+                <option value="10-25">10-25</option>
+                <option value="25-50">25-50</option>
+                <option value="50-100">50-100</option>
+                <option value="over-100">Over 100 meals</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="supportingDocument">Supporting Document / License Proof</label>
+              <input type="text" id="supportingDocument" name="supportingDocument" placeholder="e.g. FSSAI_Central_License_MH_2024.pdf">
+              <small class="text-muted" style="display:block; margin-top:4px;">Enter document name, registration certificate reference, or document URL</small>
+            </div>
+          </div>
+
+          <!-- NGO-specific Fields -->
+          <div id="ngoFields" class="auth-section" style="display:none">
+            <div class="form-group">
+              <label for="ngoRegNumber">NGO Registration Number</label>
+              <input type="text" id="ngoRegNumber" name="ngoRegistration" placeholder="NGO Registration Number">
+            </div>
+
+            <div class="form-group">
+              <label for="beneficiaries">Beneficiaries Served</label>
+              <input type="number" id="beneficiaries" name="beneficiariesServed" placeholder="Number of beneficiaries">
+            </div>
+
+            <div class="form-group">
+              <label>Food Preferences</label>
+              <div>
+                <label><input type="checkbox" name="foodPreferences" value="vegetarian" checked> Vegetarian</label>
+                <label><input type="checkbox" name="foodPreferences" value="non-vegetarian" checked> Non-Vegetarian</label>
+                <label><input type="checkbox" name="foodPreferences" value="both"> Both</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="operatingAreas">Operating Areas</label>
+              <input type="text" id="operatingAreas" name="operatingAreas" placeholder="e.g. Andheri, Bandra, Dadar">
+            </div>
+
+            <div class="form-group">
+              <label for="pickupVehicle">Pickup Vehicle</label>
+              <select id="pickupVehicle" name="pickupVehicle">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ngoDoc">Supporting Document / Registration Proof</label>
+              <input type="text" id="ngoDoc" name="ngoDoc" placeholder="e.g. NGO_Darpan_Certificate_2024.pdf">
+              <small class="text-muted" style="display:block; margin-top:4px;">Enter document name, registration certificate reference, or document URL</small>
+            </div>
+          </div>
+
+          <input type="hidden" name="role" value="restaurant" id="roleInput">
+
+          <div class="form-group">
+            <label class="checkbox-label"><input type="checkbox" name="terms" required checked> I agree to the Terms of Service and Privacy Policy</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="/login">Log in here</a></p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h3><span class="logo-icon">🌿</span> FoodBridge</h3><p>Bridging surplus food with those in need.</p></div>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="/">Home</a></li><li><a href="/available-food">Available Food</a></li><li><a href="/impact">Our Impact</a></li></ul></div>
+        <div class="footer-col"><h4>Get Started</h4><ul><li><a href="/register">Register</a></li><li><a href="/login">Login</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><p>hello@foodbridge.org</p><p>Mumbai, India</p></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2024 FoodBridge. Built with purpose.</p></div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

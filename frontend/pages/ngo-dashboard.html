@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGO Dashboard — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="/" class="nav-logo"><span class="logo-icon">🌿</span><span class="logo-text">FoodBridge</span></a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#overview" class="sidebar-link active" data-section="overview">📊 Overview</a>
+      <a href="#available-food" class="sidebar-link" data-section="available-food">🍽 Available Food</a>
+      <a href="#accepted" class="sidebar-link" data-section="accepted">✅ My Accepted</a>
+      <a href="#smart-matches" class="sidebar-link" data-section="smart-matches">🤝 Smart Matches</a>
+      <a href="#volunteers" class="sidebar-link" data-section="volunteers">👥 Volunteers</a>
+      <a href="#history" class="sidebar-link" data-section="history">📜 History</a>
+      <a href="#profile" class="sidebar-link" data-section="profile">👤 Profile</a>
+      <a href="#notifications" class="sidebar-link" data-section="notifications">🔔 Notifications</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn btn-secondary btn-sm btn-full" id="logoutBtn">Logout</button>
+    </div>
+  </aside>
+
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <h1 id="pageTitle">Overview</h1>
+      <div class="header-actions">
+        <span class="notification-bell" id="notifBell">🔔 <span class="notif-count">0</span></span>
+        <span class="user-name" id="userName">NGO</span>
+        <span id="userVerificationBadge"></span>
+      </div>
+    </header>
+
+    <div class="dashboard-content" id="dashboardContent">
+      <div id="verificationBannerContainer"></div>
+
+      <!-- Overview -->
+      <div class="dashboard-section active" id="overviewSection">
+        <div class="stats-row">
+          <div class="stat-card" style="border-left: 4px solid var(--info)">
+            <div class="stat-value" id="availableNearby">0</div>
+            <div class="stat-label">Available Nearby</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--accent)">
+            <div class="stat-value" id="myAccepted">0</div>
+            <div class="stat-label">Accepted</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--success)">
+            <div class="stat-value" id="myCompleted">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid var(--primary)">
+            <div class="stat-value" id="peopleServed">0</div>
+            <div class="stat-label">People Served</div>
+          </div>
+        </div>
+        <h2>Recommended For You</h2>
+        <p class="text-muted mb-2">Based on your food preferences and location</p>
+        <div class="recommended-donations" id="recommendedDonations">
+          <div class="empty-state">
+            <div class="empty-icon">🤝</div>
+            <h3>No recommendations yet</h3>
+            <p>Update your profile preferences to get matched with donations.</p>
+            <a href="#profile" class="btn btn-primary btn-sm" data-section="profile">Update Profile</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Available Food -->
+      <div class="dashboard-section" id="availableFoodSection">
+        <div id="ngoAvailableFoodBanner"></div>
+        <h2>Available Food Donations</h2>
+        <div class="filter-bar">
+          <input type="text" placeholder="Search by food name..." class="filter-search" id="foodSearch">
+          <select id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="cooked-meals">Cooked Meals</option>
+            <option value="raw-ingredients">Raw Ingredients</option>
+            <option value="packaged-food">Packaged Food</option>
+            <option value="baked-goods">Baked Goods</option>
+            <option value="beverages">Beverages</option>
+            <option value="fruits-vegetables">Fruits &amp; Vegetables</option>
+            <option value="dairy">Dairy</option>
+          </select>
+          <select id="dietFilter">
+            <option value="">All Diets</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="non-vegetarian">Non-Vegetarian</option>
+            <option value="vegan">Vegan</option>
+          </select>
+          <select id="sortFilter">
+            <option value="nearest">Nearest First</option>
+            <option value="deadline">Deadline Soon</option>
+            <option value="best-match">Best Match</option>
+          </select>
+          <button class="btn btn-primary btn-sm" id="applyFilters">Search</button>
+        </div>
+        <div class="food-grid" id="availableFoodGrid">
+          <div class="empty-state">
+            <div class="empty-icon">🍽</div>
+            <h3>No available donations</h3>
+            <p>New donations from nearby restaurants will appear here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accepted -->
+      <div class="dashboard-section" id="acceptedSection">
+        <h2>My Accepted Donations</h2>
+        <p class="text-muted mb-2">Manage your accepted pickups and confirm delivery</p>
+        <div class="accepted-donations-list" id="acceptedDonationsList">
+          <div class="empty-state">
+            <div class="empty-icon">✅</div>
+            <h3>No accepted donations yet</h3>
+            <p>Browse available food to get started.</p>
+            <a href="#available-food" class="btn btn-primary btn-sm" data-section="available-food">Browse Food</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Matches -->
+      <div class="dashboard-section" id="smartMatchesSection">
+        <h2>Smart Match Recommendations</h2>
+        <p class="text-muted mb-2">Our matching algorithm recommends donations based on your profile</p>
+        <div class="card mb-3" style="background: var(--primary-bg)">
+          <h3>How Smart Matching Works</h3>
+          <p>FoodBridge uses a rule-based matching algorithm to recommend the best food donations for your NGO. The match score considers:</p>
+          <div class="match-factors">
+            <div class="match-factor">
+              <strong>📍 Distance — 40%</strong>
+              <p>Closer donations score higher, ensuring practical pickup logistics.</p>
+            </div>
+            <div class="match-factor">
+              <strong>🍽 Food Compatibility — 35%</strong>
+              <p>Matching your food preferences, dietary needs, and quantity requirements.</p>
+            </div>
+            <div class="match-factor">
+              <strong>⏰ Pickup Availability — 25%</strong>
+              <p>Whether you can collect the food before the pickup deadline.</p>
+            </div>
+          </div>
+          <small class="text-muted">This is a rule-based algorithm, not a machine learning model. Scores are calculated from your profile data and donation details.</small>
+        </div>
+        <div class="matches-list" id="matchesList">
+          <div class="empty-state">
+            <div class="empty-icon">🤝</div>
+            <h3>No matches available</h3>
+            <p>Matches will appear when there are donations compatible with your profile.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volunteers -->
+      <div class="dashboard-section" id="volunteersSection">
+        <h2>Volunteer Management</h2>
+        <div class="section-actions mb-2">
+          <button class="btn btn-primary btn-sm" id="addVolunteerBtn">+ Add Volunteer</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Phone</th><th>Status</th><th>Assigned Pickup</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="volunteersTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="volunteersEmpty">
+          <div class="empty-icon">👥</div>
+          <h3>No volunteers added</h3>
+          <p>Add volunteers who can help with food pickups and distribution.</p>
+        </div>
+
+        <!-- Add Volunteer Modal -->
+        <div class="modal-overlay" id="volunteerModal" style="display:none">
+          <div class="modal">
+            <div class="modal-header">
+              <h3>Add Volunteer</h3>
+              <button class="modal-close" id="closeVolunteerModal">&times;</button>
+            </div>
+            <form id="volunteerForm">
+              <div class="form-group">
+                <label for="volName">Full Name *</label>
+                <input type="text" id="volName" name="name" required placeholder="Volunteer's name">
+              </div>
+              <div class="form-group">
+                <label for="volPhone">Phone *</label>
+                <input type="tel" id="volPhone" name="phone" required placeholder="+91 98765 43210">
+              </div>
+              <div class="form-group">
+                <label for="volEmail">Email</label>
+                <input type="email" id="volEmail" name="email" placeholder="volunteer@example.com">
+              </div>
+              <div class="form-group">
+                <label for="volVehicle">Transportation Mode</label>
+                <select id="volVehicle" name="vehicle">
+                  <option value="Two-Wheeler (Bike)">🛵 Two-Wheeler (Bike / Scooter)</option>
+                  <option value="Van / Four-Wheeler">🚐 Van / Cargo Car</option>
+                  <option value="Auto Rickshaw">🛺 Auto / Cargo Rickshaw</option>
+                  <option value="On Foot">🚶 Walking / Nearby Route</option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Volunteer</button>
+                <button type="button" class="btn btn-secondary" id="cancelVolunteer">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="dashboard-section" id="historySection">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <h2 style="margin:0;">Pickup History</h2>
+          <button class="btn btn-secondary btn-sm" id="exportNgoCsvBtn">📥 Download CSV Report</button>
+        </div>
+
+        <!-- Quick Date Range Pills -->
+        <div class="quick-date-pills" style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm btn-outline ngo-date-pill active" data-range="all">All Time</button>
+          <button type="button" class="btn btn-sm btn-outline ngo-date-pill" data-range="today">Today</button>
+          <button type="button" class="btn btn-sm btn-outline ngo-date-pill" data-range="week">Last 7 Days</button>
+          <button type="button" class="btn btn-sm btn-outline ngo-date-pill" data-range="month">Last 30 Days</button>
+        </div>
+
+        <div class="filter-bar" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input type="date" id="ngoHistoryFrom" placeholder="From date">
+          <input type="date" id="ngoHistoryTo" placeholder="To date">
+          <select id="ngoHistoryStatusFilter">
+            <option value="all">All Status</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="expired">Expired</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" id="resetNgoHistoryBtn">Reset Filters</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>Date</th><th>Food</th><th>Restaurant</th><th>Quantity</th><th>Status</th><th>Rating</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="historyEmpty">
+          <div class="empty-icon">📜</div>
+          <h3>No pickup history</h3>
+          <p>Your completed, cancelled, or past pickups will be categorized and recorded here.</p>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <div class="dashboard-section" id="profileSection">
+        <h2>NGO Profile</h2>
+        <form id="profileForm" class="card">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profOrgName">Organization Name</label>
+              <input type="text" id="profOrgName" name="orgName">
+            </div>
+            <div class="form-group">
+              <label for="profRegNo">Registration Number</label>
+              <input type="text" id="profRegNo" name="regNumber">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profEmail">Email</label>
+            <input type="email" id="profEmail" name="email" readonly class="input-readonly">
+          </div>
+          <div class="form-group">
+            <label for="profPhone">Phone</label>
+            <input type="tel" id="profPhone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="profAddress">Address</label>
+            <textarea id="profAddress" name="address" rows="2"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profCity">City</label>
+              <input type="text" id="profCity" name="city">
+            </div>
+            <div class="form-group">
+              <label for="profPincode">Pincode</label>
+              <input type="text" id="profPincode" name="pincode">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profBeneficiaries">Number of Beneficiaries Served</label>
+            <input type="number" id="profBeneficiaries" name="beneficiaries" min="1">
+          </div>
+          <div class="form-group">
+            <label for="profAreas">Operating Areas</label>
+            <input type="text" id="profAreas" name="operatingAreas" placeholder="e.g. Andheri, Bandra, Dadar">
+          </div>
+          <div class="form-group">
+            <label>Food Preferences</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="foodPref" value="vegetarian"> Vegetarian</label>
+              <label class="checkbox-label"><input type="checkbox" name="foodPref" value="non-vegetarian"> Non-Vegetarian</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profVehicle">Pickup Vehicle Available</label>
+            <select id="profVehicle" name="pickupVehicle">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="profPickupTimes">Preferred Pickup Times</label>
+            <input type="text" id="profPickupTimes" name="pickupTimes" placeholder="e.g. 10 AM - 2 PM, 5 PM - 8 PM">
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <span class="badge badge-pending">Pending Verification</span>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+
+      <!-- Notifications -->
+      <div class="dashboard-section" id="notificationsSection">
+        <h2>Notifications</h2>
+        <div class="notifications-list" id="notificationsList">
+          <div class="empty-state">
+            <div class="empty-icon">🔔</div>
+            <h3>No notifications</h3>
+            <p>You'll receive updates about matches, pickups, and donation status here.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

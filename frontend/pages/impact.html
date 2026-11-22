@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Impact — FoodBridge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <style>
+    .chart-container { display: flex; align-items: flex-end; gap: 16px; padding: 32px 24px 16px; min-height: 280px; }
+    .chart-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .bar-fill { width: 100%; background: var(--primary-light); border-radius: 6px 6px 0 0; min-height: 8px; transition: height 0.6s ease; }
+    .bar-value { font-size: 0.85rem; font-weight: 600; color: var(--primary); }
+    .bar-label { font-size: 0.8rem; color: var(--text-secondary); }
+    .impact-metric { display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-light); }
+    .impact-metric:last-child { border-bottom: none; }
+    .metric-value { font-size: 1.8rem; font-weight: 700; color: var(--primary); min-width: 140px; }
+    .metric-label { color: var(--text-secondary); }
+    .recent-item { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border-light); }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary-light); flex-shrink: 0; }
+    .recent-text { flex: 1; }
+    .recent-date { font-size: 0.8rem; color: var(--text-light); white-space: nowrap; }
+    .category-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .category-name { width: 150px; font-size: 0.9rem; color: var(--text-secondary); text-align: right; flex-shrink: 0; }
+    .category-track { flex: 1; height: 24px; background: var(--bg-light); border-radius: 12px; overflow: hidden; }
+    .category-fill { height: 100%; background: var(--primary-light); border-radius: 12px; transition: width 0.8s ease; }
+    .category-pct { font-size: 0.85rem; font-weight: 600; color: var(--primary); width: 40px; }
+    @media (max-width: 768px) {
+      .chart-container { gap: 8px; padding: 24px 12px 12px; }
+      .category-name { width: 100px; font-size: 0.8rem; }
+      .metric-value { font-size: 1.4rem; min-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">FoodBridge</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/available-food">Available Food</a></li>
+      <li><a href="/impact">Impact</a></li>
+      <li><a href="/login" class="btn btn-secondary btn-sm">Login</a></li>
+      <li><a href="/register" class="btn btn-primary btn-sm">Register</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<main style="padding-top: 80px">
+  <div class="container">
+    <div class="page-header">
+      <h1>Our Impact</h1>
+      <p>See how FoodBridge is making a difference in food redistribution</p>
+    </div>
+
+    <p class="text-muted text-center mb-3" style="font-size:0.85rem">Statistics reflect platform records and update as donations are completed.</p>
+
+    <!-- Impact Overview Stats -->
+    <div class="stats-grid mb-4">
+      <div class="stat-item">
+        <div class="stat-number" id="impactMeals" data-target="0">0</div>
+        <div class="stat-label">Meals Donated</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="impactPickups" data-target="0">0</div>
+        <div class="stat-label">Successful Pickups</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="impactRestaurants" data-target="0">0</div>
+        <div class="stat-label">Restaurants</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="impactNgos" data-target="0">0</div>
+        <div class="stat-label">NGOs</div>
+      </div>
+    </div>
+
+    <!-- Monthly Trends -->
+    <h2 class="mb-2">Monthly Donation Trends</h2>
+    <div class="card mb-4">
+      <div class="chart-container" id="monthlyChartContainer">
+      </div>
+    </div>
+
+    <!-- Food Waste Reduction -->
+    <h2 class="mb-2">Food Waste Reduction</h2>
+    <div class="card mb-4">
+      <div class="impact-metric">
+        <div class="metric-value" id="foodKgVal">0 kg</div>
+        <div class="metric-label">Estimated food redistributed (based on 0.4 kg average per serving recorded)</div>
+      </div>
+      <div class="impact-metric">
+        <div class="metric-value" id="co2KgVal">0 kg</div>
+        <div class="metric-label">Estimated CO&#8322; emissions avoided (using 2.5 kg CO&#8322; per kg of food waste diverted from landfill)</div>
+      </div>
+      <small class="text-muted" style="display:block; margin-top:12px">Estimates based on average serving weights and published food waste emission factors. These are approximate calculations for awareness purposes and are not independently verified environmental impact figures.</small>
+    </div>
+
+    <!-- Recent Successful Donations -->
+    <h2 class="mb-2">Recent Successful Donations</h2>
+    <div class="card mb-4" id="recentDonationsContainer">
+    </div>
+
+    <!-- Category Breakdown -->
+    <h2 class="mb-2">Category Breakdown</h2>
+    <div class="card mb-4" id="categoryBreakdownContainer">
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3><span class="logo-icon">🌿</span> FoodBridge</h3>
+        <p>Bridging surplus food with those in need.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul><li><a href="/">Home</a></li><li><a href="/available-food">Available Food</a></li><li><a href="/impact">Our Impact</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Started</h4>
+        <ul><li><a href="/register">Register</a></li><li><a href="/login">Login</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@foodbridge.org</p>
+        <p>Mumbai, India</p>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2024 FoodBridge. Built with purpose.</p></div>
+  </div>
+</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/i18n.js"></script>
+<script src="/js/impact.js"></script>
+</body>
+</html>
